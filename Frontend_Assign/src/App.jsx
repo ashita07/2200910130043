@@ -15,15 +15,18 @@ function App() {
       id: shortUrl,
       longUrl: url,
       shortUrl: `${window.location.origin}/${shortUrl}`,
+      createdAt: new Date().toLocaleString(),
+      clicks: 0,
     };
     const updated = [...AllUrls, cardNew];
     setAllUrls(updated);
     localStorage.setItem("AllUrls", JSON.stringify(updated));
     setUrl("");
   };
+
   const handleClick = (id) => {
     const updated = AllUrls.map((entry) =>
-      entry.id === id ? { ...entry } : entry
+      entry.id === id ? { ...entry, clicks: entry.clicks + 1 } : entry
     );
     setAllUrls(updated);
     localStorage.setItem("AllUrls", JSON.stringify(updated));
@@ -31,7 +34,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1> URL Shortener</h1>
+      <h1>URL Shortener</h1>
       <div className="input">
         <input
           type="text"
@@ -58,6 +61,12 @@ function App() {
             </p>
             <p>
               <strong>Original:</strong> {entry.longUrl}
+            </p>
+            <p>
+              <strong>Created:</strong> {entry.createdAt}
+            </p>
+            <p>
+              <strong>Clicks:</strong> {entry.clicks}
             </p>
           </div>
         ))}
