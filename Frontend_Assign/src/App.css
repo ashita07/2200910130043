@@ -1,8 +1,22 @@
 .app {
   font-family: sans-serif;
-  max-width: 600px;
+  max-width: 1200px;
   margin: auto;
   padding: 20px;
+  background: rgb(135, 134, 134);
+}
+
+.input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d39393;
+  border-radius: 6px;
 }
 
 h1 {
@@ -10,22 +24,9 @@ h1 {
   margin-bottom: 20px;
 }
 
-.input-box {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.input-box input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-}
-
-.input-box button {
+.input button {
   padding: 10px 16px;
-  background: #0077ff;
+  background: black;
   color: white;
   border: none;
   border-radius: 6px;
@@ -33,15 +34,16 @@ h1 {
 }
 
 .url-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
 
 .url-card {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #af7575;
   border-radius: 8px;
   background: #f9f9f9;
+  word-wrap: break-word;
   overflow: hidden;
 }

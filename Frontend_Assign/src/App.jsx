@@ -1,40 +1,38 @@
 import "./App.css";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function App() {
   const [url, setUrl] = useState("");
-  const [urls, setUrls] = useState(() => {
-    const saved = localStorage.getItem("urls");
+  const [AllUrls, setAllUrls] = useState(() => {
+    const saved = localStorage.getItem("AllUrls");
     return saved ? JSON.parse(saved) : [];
   });
 
   const generate = () => {
     if (!url.trim()) return;
     const shortUrl = Math.random().toString(36).substring(2, 8);
-    const newEntry = {
+    const cardNew = {
       id: shortUrl,
       longUrl: url,
       shortUrl: `${window.location.origin}/${shortUrl}`,
-      clicks: 0,
-      createdAt: new Date().toLocaleString(),
     };
-    const updated = [...urls, newEntry];
-    setUrls(updated);
-    localStorage.setItem("urls", JSON.stringify(updated));
+    const updated = [...AllUrls, cardNew];
+    setAllUrls(updated);
+    localStorage.setItem("AllUrls", JSON.stringify(updated));
     setUrl("");
   };
   const handleClick = (id) => {
-    const updated = urls.map((entry) =>
-      entry.id === id ? { ...entry, clicks: entry.clicks + 1 } : entry
+    const updated = AllUrls.map((entry) =>
+      entry.id === id ? { ...entry } : entry
     );
-    setUrls(updated);
-    localStorage.setItem("urls", JSON.stringify(updated));
+    setAllUrls(updated);
+    localStorage.setItem("AllUrls", JSON.stringify(updated));
   };
 
   return (
     <div className="app">
-      <h1>🔗 Simple URL Shortener</h1>
-      <div className="input-box">
+      <h1> URL Shortener</h1>
+      <div className="input">
         <input
           type="text"
           placeholder="Enter long URL"
@@ -45,7 +43,7 @@ function App() {
       </div>
 
       <div className="url-list">
-        {urls.map((entry) => (
+        {AllUrls.map((entry) => (
           <div key={entry.id} className="url-card">
             <p>
               <strong>Short:</strong>{" "}
@@ -60,12 +58,6 @@ function App() {
             </p>
             <p>
               <strong>Original:</strong> {entry.longUrl}
-            </p>
-            <p>
-              <strong>Clicks:</strong> {entry.clicks}
-            </p>
-            <p>
-              <strong>Created:</strong> {entry.createdAt}
             </p>
           </div>
         ))}
